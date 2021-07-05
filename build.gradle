@@ -2,14 +2,16 @@
 buildscript {
     ext.kotlin_version = "1.4.32"
     repositories {
-        maven {
-        url "https://nexus.partdp.ir/repository/part-android/"
-        artifactUrls "https://nexus.partdp.ir/repository/part-android/"
-        credentials {
-            username "android-user"
-            password "p9PTCB[^Z}tcM}wn:ZF4NnVNd=DXC-ML=w3/6"
-        }
-    }
+//        maven {
+//            url "https://nexus.partdp.ir/repository/part-android/"
+//            artifactUrls "https://nexus.partdp.ir/repository/part-android/"
+//            credentials {
+//                username "android-user"
+//                password "p9PTCB[^Z}tcM}wn:ZF4NnVNd=DXC-ML=w3/6"
+//            }
+//        }
+        maven { url "https://maven.neshan.org/artifactory/public-maven" }
+
         google()
         jcenter()
         mavenCentral()
@@ -17,6 +19,8 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:4.1.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        def nav_version = "2.3.5"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -25,14 +29,15 @@ buildscript {
 
 allprojects {
     repositories {
-        maven {
-            url "https://nexus.partdp.ir/repository/part-android/"
-            artifactUrls "https://nexus.partdp.ir/repository/part-android/"
-            credentials {
-                username "android-user"
-                password "p9PTCB[^Z}tcM}wn:ZF4NnVNd=DXC-ML=w3/6"
-            }
-        }
+//        maven {
+//            url "https://nexus.partdp.ir/repository/part-android/"
+//            artifactUrls "https://nexus.partdp.ir/repository/part-android/"
+//            credentials {
+//                username "android-user"
+//                password "p9PTCB[^Z}tcM}wn:ZF4NnVNd=DXC-ML=w3/6"
+//            }
+//        }
+        maven { url "https://maven.neshan.org/artifactory/public-maven" }
         google()
         jcenter()
         mavenCentral()
