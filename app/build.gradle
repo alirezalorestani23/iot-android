@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'kotlin-kapt'
 }
 android {
     compileSdkVersion 30
@@ -62,7 +63,7 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
     implementation "com.squareup.retrofit2:converter-gson:2.8.1"
     implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
     implementation 'neshan-android-sdk:mobile-sdk:1.0.0'
     implementation 'neshan-android-sdk:services-sdk:1.0.0'
     implementation 'neshan-android-sdk:common-sdk:0.0.1'
