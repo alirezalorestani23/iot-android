@@ -1,32 +1,16 @@
 package com.example.iot
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.iot.databinding.FragmentHomeBinding
 import com.google.android.material.button.MaterialButton
 
 
-class LoginFragment : Fragment() {
+class LoginFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_login) {
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        return inflater.inflate(R.layout.fragment_login, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val button = view.findViewById<MaterialButton>(R.id.button)
-        button.setOnClickListener {
+    override fun onViewCreated() {
+        val button = view?.findViewById<MaterialButton>(R.id.btn_login)
+        button?.setOnClickListener {
             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
         }
-
-
     }
 }
