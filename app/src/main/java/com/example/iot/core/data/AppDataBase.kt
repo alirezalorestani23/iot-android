@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.iot.feature.data.GuardDao
+import com.example.iot.feature.data.GuardEntity
 
 @Database(
     entities = [

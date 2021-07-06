@@ -1,4 +1,4 @@
-package com.example.iot
+package com.example.iot.feature.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.iot.R
+import com.example.iot.feature.ui.LoginFragmentDirections.Companion.actionLoginFragmentToHomeFragment
 import com.google.android.material.button.MaterialButton
 
 
@@ -24,7 +26,7 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val button = view.findViewById<MaterialButton>(R.id.button)
         button.setOnClickListener {
-            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+            findNavController().navigate(actionLoginFragmentToHomeFragment())
         }
 
 

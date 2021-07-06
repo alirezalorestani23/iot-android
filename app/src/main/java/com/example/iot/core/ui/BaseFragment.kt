@@ -1,4 +1,4 @@
-package com.example.iot
+package com.example.iot.core.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
