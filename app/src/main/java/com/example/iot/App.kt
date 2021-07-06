@@ -2,6 +2,7 @@ package com.example.iot
 
 import android.app.Application
 import android.content.Context
+import com.example.iot.core.data.SharedPreferencesManager
 import com.google.gson.Gson
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -19,6 +20,7 @@ class App : Application() {
         super.onCreate()
         context = applicationContext
         roomDatabase = provideDB(context)
+        retrofit = provideRetrofit()
         preferences = provideSharedPreferences(context)
         gSon = provideGSon()
         retrofit = provideRetrofit()

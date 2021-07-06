@@ -19,5 +19,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            app:fabSize="normal"
+            app:backgroundTint="#ff1da1f2"
+            android:contentDescription="@string/search_guard"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_margin="8dp"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

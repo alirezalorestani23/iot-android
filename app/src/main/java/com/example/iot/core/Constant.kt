@@ -1,4 +1,4 @@
-package com.example.iot
+package com.example.iot.core
 
 import org.neshan.common.model.LatLng
 
