@@ -4,6 +4,9 @@ import android.app.Application
 import android.content.Context
 import com.example.iot.core.data.SharedPreferencesManager
 import com.google.gson.Gson
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -32,8 +35,16 @@ class App : Application() {
     }
 
     private fun provideRetrofit(): Retrofit {
+
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.level = HttpLoggingInterceptor.Level.BODY
+        val okHttpClient = OkHttpClient.Builder()
+            .addInterceptor(interceptor)
+            .build()
+
         return Retrofit.Builder()
-            .baseUrl("https://api.github.com/")
+            .baseUrl("http://185.211.58.230/")
+            .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 

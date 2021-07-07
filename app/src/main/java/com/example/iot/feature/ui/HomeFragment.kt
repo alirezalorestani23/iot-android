@@ -2,12 +2,14 @@ package com.example.iot.feature.ui
 
 import android.graphics.BitmapFactory
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.carto.graphics.Color
 import com.carto.styles.*
 import com.carto.utils.BitmapUtils
 import com.example.iot.App.Companion.retrofit
 import com.example.iot.App.Companion.roomDatabase
 import com.example.iot.core.Constant.universityArea
+import com.example.iot.core.data.Result
 import com.example.iot.core.ui.BaseFragment
 import com.example.iot.databinding.FragmentHomeBinding
 import com.example.iot.feature.data.Guard
@@ -36,7 +38,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(ProjectR.layout.fragment_
     override fun onViewCreated() {
         initMap()
         viewModel.fetchGuards()
-        viewModel.guards.observe(viewLifecycleOwner, ::addGuardMarker)
+        viewModel.guards.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                is Result.Success -> {
+                    addGuardMarker(it.data)
+                }
+                is Result.Error -> {
+
+                }
+
+            }
+        })
     }
 
     private fun initMap() {
@@ -79,7 +91,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(ProjectR.layout.fragment_
 
     private fun addGuardMarker(guards: List<Guard>) {
         dataBinding?.map?.let {
-            guards.forEach { guard->
+            guards.forEach { guard ->
                 it.addMarker(
                     createMarker(
                         LatLng(
@@ -90,8 +102,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(ProjectR.layout.fragment_
                 )
             }
         }
-
     }
+
 
     private fun createMarker(loc: LatLng): Marker {
         // Creating animation for marker. We should use an object of type AnimationStyleBuilder, set
