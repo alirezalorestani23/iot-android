@@ -4,11 +4,11 @@ import com.example.iot.core.data.Result
 import com.example.iot.feature.ui.LoginResponse
 
 
-class LoginRepository(private val remote: LoginService) {
+class LoginRepository(private val service: LoginService) {
 
     suspend fun login(loginBody: LoginBody): Result<LoginResponse>? {
         return try {
-            val response = remote.login(loginBody)
+            val response = service.login(loginBody)
 
             if (response.isSuccessful) {
                 response.body()?.let {

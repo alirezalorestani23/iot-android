@@ -12,7 +12,8 @@ import com.example.iot.core.Constant.universityArea
 import com.example.iot.core.data.Result
 import com.example.iot.core.ui.BaseFragment
 import com.example.iot.databinding.FragmentHomeBinding
-import com.example.iot.feature.data.Guard
+import com.example.iot.feature.data.ActiveGuardsResponse
+import com.example.iot.feature.data.GuardLastHistoryResponse
 import com.example.iot.feature.data.GuardRepository
 import com.example.iot.feature.data.GuardService
 import org.neshan.common.model.LatLng
@@ -37,13 +38,33 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(ProjectR.layout.fragment_
 
     override fun onViewCreated() {
         initMap()
-        viewModel.fetchGuards()
-        viewModel.guards.observe(viewLifecycleOwner, Observer {
+        viewModel.fetchActiveGuards()
+        viewModel.activeGuards.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                is Result.Success -> {
+                    it.data.activeGuardsList.forEach { activeGuard ->
+                        viewModel.getGuardLastHistory(activeGuard.staffId)
+                    }
+                }
+                is Result.Error -> {
+
+                }
+                is Result.Loading -> {
+
+                }
+
+            }
+        })
+        viewModel.guardLastHistory.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is Result.Success -> {
                     addGuardMarker(it.data)
+
                 }
                 is Result.Error -> {
+
+                }
+                is Result.Loading -> {
 
                 }
 
@@ -89,19 +110,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(ProjectR.layout.fragment_
         return lineStCr.buildStyle()
     }
 
-    private fun addGuardMarker(guards: List<Guard>) {
-        dataBinding?.map?.let {
-            guards.forEach { guard ->
-                it.addMarker(
-                    createMarker(
-                        LatLng(
-                            guard.lastLocationLAT,
-                            guard.lastLocationLANG
-                        )
+    private fun addGuardMarker(guardLastHistory: GuardLastHistoryResponse) {
+        if (guardLastHistory.last != null)
+            dataBinding?.map?.addMarker(
+                createMarker(
+                    LatLng(
+                        guardLastHistory.last.lat,
+                        guardLastHistory.last.lang
                     )
                 )
-            }
-        }
+            )
     }
 
 
