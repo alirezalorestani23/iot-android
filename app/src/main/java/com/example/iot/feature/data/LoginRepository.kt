@@ -6,9 +6,9 @@ import com.example.iot.feature.ui.LoginResponse
 
 class LoginRepository(private val remote: LoginService) {
 
-    suspend fun login(username: String, password: String): Result<LoginResponse>? {
+    suspend fun login(loginBody: LoginBody): Result<LoginResponse>? {
         return try {
-            val response = remote.login(username, password)
+            val response = remote.login(loginBody)
 
             if (response.isSuccessful) {
                 response.body()?.let {

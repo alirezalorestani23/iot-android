@@ -3,14 +3,14 @@ buildscript {
     ext.kotlin_version = "1.4.32"
     repositories {
         maven { url "https://maven.neshan.org/artifactory/public-maven" }
-        maven {
-            url "https://nexus.partdp.ir/repository/part-android/"
-            artifactUrls "https://nexus.partdp.ir/repository/part-android/"
-            credentials {
-                username "android-user"
-                password "p9PTCB[^Z}tcM}wn:ZF4NnVNd=DXC-ML=w3/6"
-            }
-        }
+//        maven {
+//            url "https://nexus.partdp.ir/repository/part-android/"
+//            artifactUrls "https://nexus.partdp.ir/repository/part-android/"
+//            credentials {
+//                username "android-user"
+//                password "p9PTCB[^Z}tcM}wn:ZF4NnVNd=DXC-ML=w3/6"
+//            }
+//        }
 
         google()
         jcenter()
@@ -32,14 +32,14 @@ buildscript {
 allprojects {
     repositories {
         maven { url "https://maven.neshan.org/artifactory/public-maven" }
-        maven {
-            url "https://nexus.partdp.ir/repository/part-android/"
-            artifactUrls "https://nexus.partdp.ir/repository/part-android/"
-            credentials {
-                username "android-user"
-                password "p9PTCB[^Z}tcM}wn:ZF4NnVNd=DXC-ML=w3/6"
-            }
-        }
+//        maven {
+//            url "https://nexus.partdp.ir/repository/part-android/"
+//            artifactUrls "https://nexus.partdp.ir/repository/part-android/"
+//            credentials {
+//                username "android-user"
+//                password "p9PTCB[^Z}tcM}wn:ZF4NnVNd=DXC-ML=w3/6"
+//            }
+//        }
         google()
         jcenter()
         mavenCentral()
