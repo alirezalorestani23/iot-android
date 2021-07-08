@@ -1,34 +1,47 @@
 package com.example.iot.feature.ui
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.example.iot.App
 import com.example.iot.R
-import com.example.iot.feature.ui.LoginFragmentDirections.Companion.actionLoginFragmentToHomeFragment
-import com.google.android.material.button.MaterialButton
+import com.example.iot.core.data.Result
+import com.example.iot.core.ui.BaseFragment
+import com.example.iot.databinding.FragmentLoginBinding
+import com.example.iot.feature.data.LoginRepository
+import com.example.iot.feature.data.LoginService
 
 
-class LoginFragment : Fragment() {
+class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        return inflater.inflate(R.layout.fragment_login, container, false)
+    private val viewModel by viewModels<LoginViewModel> {
+        LoginViewModelFactory(
+            LoginRepository(
+                App.retrofit.create(LoginService::class.java),
+            ),
+            this
+        )
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val button = view.findViewById<MaterialButton>(R.id.button)
-        button.setOnClickListener {
-            findNavController().navigate(actionLoginFragmentToHomeFragment())
-        }
+    override fun onViewCreated() {
+        dataBinding?.vm = viewModel
 
+        viewModel.loginResponse.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                is Result.Success -> {
+                    findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+                }
+                is Result.Error -> {
+                    Toast.makeText(requireContext(), it.data?.message, Toast.LENGTH_SHORT).show()
 
+                }
+                is Result.Loading -> {
+
+                }
+            }
+        })
     }
+
+
 }
