@@ -1,6 +1,10 @@
 package com.example.iot.feature.ui
 
+import android.R
 import android.graphics.BitmapFactory
+import android.view.MenuItem
+import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.carto.graphics.Color
@@ -12,15 +16,16 @@ import com.example.iot.core.Constant.universityArea
 import com.example.iot.core.data.Result
 import com.example.iot.core.ui.BaseFragment
 import com.example.iot.databinding.FragmentHomeBinding
-import com.example.iot.feature.data.Guard
+import com.example.iot.feature.data.GuardLastHistoryResponse
 import com.example.iot.feature.data.GuardRepository
 import com.example.iot.feature.data.GuardService
+import com.google.android.material.appbar.MaterialToolbar
 import org.neshan.common.model.LatLng
 import org.neshan.mapsdk.MapView
-import org.neshan.mapsdk.R
 import org.neshan.mapsdk.model.Marker
 import org.neshan.mapsdk.model.Polygon
 import com.example.iot.R as ProjectR
+import org.neshan.mapsdk.R as NR
 
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(ProjectR.layout.fragment_home) {
@@ -37,18 +42,54 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(ProjectR.layout.fragment_
 
     override fun onViewCreated() {
         initMap()
-        viewModel.fetchGuards()
-        viewModel.guards.observe(viewLifecycleOwner, Observer {
+        viewModel.fetchActiveGuards()
+        viewModel.activeGuards.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is Result.Success -> {
-                    addGuardMarker(it.data)
+                    it.data.activeGuardsList.forEach { activeGuard ->
+                        viewModel.getGuardLastHistory(activeGuard.staffId)
+                    }
                 }
                 is Result.Error -> {
+
+                }
+                is Result.Loading -> {
 
                 }
 
             }
         })
+        viewModel.guardLastHistory.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                is Result.Success -> {
+                    addGuardMarker(it.data)
+
+                }
+                is Result.Error -> {
+
+                }
+                is Result.Loading -> {
+
+                }
+
+            }
+        })
+
+        val toolbar = view?.findViewById<MaterialToolbar>(ProjectR.id.mt_home_fragment)
+        toolbar?.inflateMenu(ProjectR.menu.home_menu)
+
+        toolbar?.setOnMenuItemClickListener {
+            when (it.itemId) {
+                ProjectR.id.home_menu_guards -> {
+                    Toast.makeText(requireContext(), "guards", Toast.LENGTH_SHORT).show()
+                }
+                ProjectR.id.home_menu_bands -> {
+                    Toast.makeText(requireContext(), "bands", Toast.LENGTH_SHORT).show()
+                }
+            }
+            true
+        }
+
     }
 
     private fun initMap() {
@@ -89,19 +130,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(ProjectR.layout.fragment_
         return lineStCr.buildStyle()
     }
 
-    private fun addGuardMarker(guards: List<Guard>) {
-        dataBinding?.map?.let {
-            guards.forEach { guard ->
-                it.addMarker(
-                    createMarker(
-                        LatLng(
-                            guard.lastLocationLAT,
-                            guard.lastLocationLANG
-                        )
+    private fun addGuardMarker(guardLastHistory: GuardLastHistoryResponse) {
+        if (guardLastHistory.last != null)
+            dataBinding?.map?.addMarker(
+                createMarker(
+                    LatLng(
+                        guardLastHistory.last.lat,
+                        guardLastHistory.last.lang
                     )
                 )
-            }
-        }
+            )
     }
 
 
@@ -122,7 +160,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(ProjectR.layout.fragment_
         markStCr.size = 30f
         markStCr.bitmap = BitmapUtils.createBitmapFromAndroidBitmap(
             BitmapFactory.decodeResource(
-                resources, R.drawable.ic_marker
+                resources, NR.drawable.ic_marker
             )
         )
         // AnimationStyle object - that was created before - is used here
