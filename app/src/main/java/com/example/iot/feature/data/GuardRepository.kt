@@ -45,4 +45,17 @@ class GuardRepository(private val guardService: GuardService, private val guardD
             Result.Error(ex.message ?: "EX")
         }
     }
+
+    suspend fun getGuards(): Result<GuardsListResponse>? {
+        return try {
+            val response = guardService.getGuards()
+            if (response.isSuccessful) {
+                response.body()?.let {
+                    Result.Success(it)
+                }
+            } else Result.Error(response.message())
+        } catch (ex: Exception) {
+            Result.Error(ex.message ?: "EX")
+        }
+    }
 }

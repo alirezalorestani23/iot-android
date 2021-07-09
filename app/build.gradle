@@ -46,6 +46,7 @@ android {
 
 dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
     def nav_version = "2.3.5"
     def room_version = "2.3.0"
 
@@ -67,6 +68,8 @@ dependencies {
     implementation 'neshan-android-sdk:mobile-sdk:1.0.0'
     implementation 'neshan-android-sdk:services-sdk:1.0.0'
     implementation 'neshan-android-sdk:common-sdk:0.0.1'
+//    implementation 'com.android.support:recyclerview-v7:27.1.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
 
     implementation 'com.google.android.gms:play-services-gcm:15.0.1'
     implementation 'com.google.android.gms:play-services-location:15.0.1'
