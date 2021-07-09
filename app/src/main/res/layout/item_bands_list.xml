@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="band"
+            type="com.example.iot.feature.data.BandsListItem" />
+
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_bands_list_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:background="#19000000"
+        android:padding="8dp">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_guard_staff_id_title_Guards_list_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="band id: "
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_guard_staff_id_value_Guards_list_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{Integer.toString(band.bandId)}"
+            app:layout_constraintStart_toEndOf="@id/tv_guard_staff_id_title_Guards_list_item"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="215" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,12 +1,10 @@
 package com.example.iot.feature.ui
 
-import android.R
 import android.graphics.BitmapFactory
-import android.view.MenuItem
 import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.carto.graphics.Color
 import com.carto.styles.*
 import com.carto.utils.BitmapUtils
@@ -82,9 +80,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(ProjectR.layout.fragment_
             when (it.itemId) {
                 ProjectR.id.home_menu_guards -> {
                     Toast.makeText(requireContext(), "guards", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToGuardsListFragment())
                 }
                 ProjectR.id.home_menu_bands -> {
                     Toast.makeText(requireContext(), "bands", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToBandsListFragment())
                 }
             }
             true

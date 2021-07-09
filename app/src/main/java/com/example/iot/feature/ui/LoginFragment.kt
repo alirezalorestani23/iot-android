@@ -27,6 +27,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     override fun onViewCreated() {
         dataBinding?.vm = viewModel
 
+
+
         viewModel.loginResponse.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is Result.Success -> {

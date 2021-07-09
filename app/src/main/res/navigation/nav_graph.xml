@@ -18,5 +18,20 @@
         android:id="@+id/homeFragment"
         android:name="com.example.iot.feature.ui.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_bandsListFragment"
+            app:destination="@id/bandsListFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_guardsListFragment"
+            app:destination="@id/guardsListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bandsListFragment"
+        android:name="com.example.iot.feature.ui.BandsListFragment"
+        android:label="BandsListFragment" />
+    <fragment
+        android:id="@+id/guardsListFragment"
+        android:name="com.example.iot.feature.ui.GuardsListFragment"
+        android:label="GuardsListFragment" />
 </navigation>

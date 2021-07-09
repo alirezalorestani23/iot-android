@@ -14,4 +14,7 @@ interface GuardService {
     suspend fun getGuardLastHistory(
         @Path("staff_id") staffId: String
     ): Response<GuardLastHistoryResponse>
+
+    @GET("/api/guards_list")
+    suspend fun getGuards(): Response<GuardsListResponse>
 }
