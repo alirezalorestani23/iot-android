@@ -8,5 +8,7 @@ data class GuardLastHistoryView(
     val lang: Double,
     @SerializedName("wristband_id") val wristbandId: Int,
     @SerializedName("guard_id") val guardId: Int,
-    val time: String
+    val time: String,
+    @SerializedName("heartbeat") val heartBeat: Int?,
+    @SerializedName("emergency_alert")val emergencyAlert: Boolean?=false
 )

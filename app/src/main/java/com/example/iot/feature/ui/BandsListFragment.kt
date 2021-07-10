@@ -3,6 +3,8 @@ package com.example.iot.feature.ui
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.iot.App
 import com.example.iot.R
@@ -16,14 +18,14 @@ import com.example.iot.feature.data.BandsListItem
 
 class BandsListFragment : BaseFragment<FragmentBandsListBinding>(R.layout.fragment_bands_list),
     BandsListRecyclerAdapter.CallBack {
-    private val viewModel by viewModels<BandsListViewModel> {
-        BandsListViewModelFactory(
-            BandRepository(
-                App.retrofit.create(BandService::class.java)
-            ),
-            this
-        )
-    }
+
+    private val viewModelFactory = BandsListViewModelFactory(
+        BandRepository(
+            App.retrofit.create(BandService::class.java)
+        ),
+        this
+    )
+    private val viewModel by navGraphViewModels<BandsListViewModel>(R.id.bandListNavGraph) { viewModelFactory }
     lateinit var recyclerViewAdapter: BandsListRecyclerAdapter
 
 
@@ -57,6 +59,11 @@ class BandsListFragment : BaseFragment<FragmentBandsListBinding>(R.layout.fragme
 
     override fun onItemClick(item: BandsListItem) {
         Toast.makeText(requireContext(), item.bandId.toString(), Toast.LENGTH_SHORT).show()
+        findNavController().navigate(
+            BandsListFragmentDirections.actionBandsListFragmentToAssignBandDialogFragment(
+                item.bandId
+            )
+        )
     }
 
 }

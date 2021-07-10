@@ -16,4 +16,17 @@ class BandRepository(private val bandService: BandService) {
         }
     }
 
+    suspend fun assignBand(editBandGuardBody: EditBandGuardBody): Result<EditBandResponse>? {
+        return try {
+            val response = bandService.assignBand(editBandGuardBody)
+            if (response.isSuccessful) {
+                response.body()?.let {
+                    Result.Success(it)
+                }
+            } else Result.Error(response.message())
+        } catch (ex: Exception) {
+            Result.Error(ex.message ?: "EX")
+        }
+    }
+
 }

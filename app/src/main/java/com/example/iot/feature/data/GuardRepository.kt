@@ -58,4 +58,30 @@ class GuardRepository(private val guardService: GuardService, private val guardD
             Result.Error(ex.message ?: "EX")
         }
     }
+
+    suspend fun getGuardProfile(staffId: Int): Result<GuardProfileResponse>? {
+        return try {
+            val response = guardService.getGuardProfile(staffId.toString())
+            if (response.isSuccessful) {
+                response.body()?.let {
+                    Result.Success(it)
+                }
+            } else Result.Error(response.message())
+        } catch (ex: Exception) {
+            Result.Error(ex.message ?: "EX")
+        }
+    }
+
+    suspend fun deleteGuard(staffBody: StaffBody): Result<DeleteGuardResponse>? {
+        return try {
+            val response = guardService.deleteGuard(staffBody)
+            if (response.isSuccessful) {
+                response.body()?.let {
+                    Result.Success(it)
+                }
+            } else Result.Error(response.message())
+        } catch (ex: Exception) {
+            Result.Error(ex.message ?: "EX")
+        }
+    }
 }
