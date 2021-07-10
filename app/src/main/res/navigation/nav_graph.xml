@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -18,20 +19,54 @@
         android:id="@+id/homeFragment"
         android:name="com.example.iot.feature.ui.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_bandsListFragment"
-            app:destination="@id/bandsListFragment" />
+            app:destination="@id/bandListNavGraph" />
         <action
             android:id="@+id/action_homeFragment_to_guardsListFragment"
             app:destination="@id/guardsListFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/bandsListFragment"
-        android:name="com.example.iot.feature.ui.BandsListFragment"
-        android:label="BandsListFragment" />
+    <navigation
+        android:id="@+id/bandListNavGraph"
+        app:startDestination="@id/bandsListFragment">
+        <fragment
+            android:id="@+id/bandsListFragment"
+            android:name="com.example.iot.feature.ui.BandsListFragment"
+            android:label="BandsListFragment"
+            tools:layout="@layout/fragment_bands_list">
+            <action
+                android:id="@+id/action_bandsListFragment_to_assignBandDialogFragment"
+                app:destination="@id/assignBandDialogFragment">
+                <argument
+                    android:name="bandId"
+                    android:defaultValue="0"
+                    app:argType="integer"
+                    app:nullable="false" />
+            </action>
+        </fragment>
+        <dialog
+            android:id="@+id/assignBandDialogFragment"
+            android:name="com.example.iot.feature.ui.AssignBandDialogFragment"
+            android:label="AssignBandDialogFragment" />
+    </navigation>
     <fragment
         android:id="@+id/guardsListFragment"
         android:name="com.example.iot.feature.ui.GuardsListFragment"
-        android:label="GuardsListFragment" />
+        android:label="GuardsListFragment"
+        tools:layout="@layout/fragment_guards_list">
+        <action
+            android:id="@+id/action_guardsListFragment_to_guardProfileFragment"
+            app:destination="@id/guardProfileFragment">
+            <argument
+                android:name="staffId"
+                android:defaultValue="0"
+                app:argType="integer" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/guardProfileFragment"
+        android:name="com.example.iot.feature.ui.GuardProfileFragment"
+        android:label="GuardProfileFragment"
+        tools:layout="@layout/fragment_guard_profile" />
 </navigation>

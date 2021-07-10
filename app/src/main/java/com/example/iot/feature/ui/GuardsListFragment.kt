@@ -1,8 +1,11 @@
 package com.example.iot.feature.ui
 
+import android.os.Bundle
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.iot.App
 import com.example.iot.R
@@ -57,7 +60,10 @@ class GuardsListFragment : BaseFragment<FragmentGuardsListBinding>(R.layout.frag
     }
 
     override fun onItemClick(item: GuardsListItem) {
-//        findNavController().navigate()
-        Toast.makeText(requireContext(), item.name, Toast.LENGTH_SHORT).show()
+        val staffId = item.staffId
+        findNavController().navigate(
+            GuardsListFragmentDirections.actionGuardsListFragmentToGuardProfileFragment(staffId)
+        )
+//        Toast.makeText(requireContext(), item.name, Toast.LENGTH_SHORT).show()
     }
 }

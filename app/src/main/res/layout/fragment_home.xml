@@ -20,37 +20,18 @@
                 android:id="@+id/mt_home_fragment"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
+                app:title="ACTIVE GUARDS"
+                app:titleTextColor="@color/white"
                 app:contentInsetStartWithNavigation="0dp" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <org.neshan.mapsdk.MapView
             android:id="@+id/map"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/abl_home_fragment" />
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_active_guards_list"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/map">
-
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_margin="8dp"
-            android:contentDescription="@string/search_guard"
-            app:backgroundTint="#ff1da1f2"
-            app:fabSize="normal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

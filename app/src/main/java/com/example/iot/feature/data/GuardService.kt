@@ -1,8 +1,8 @@
 package com.example.iot.feature.data
 
+import com.google.gson.annotations.SerializedName
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface GuardService {
 
@@ -17,4 +17,14 @@ interface GuardService {
 
     @GET("/api/guards_list")
     suspend fun getGuards(): Response<GuardsListResponse>
+
+    @GET("/api/guard_profile/{staff_id}")
+    suspend fun getGuardProfile(
+        @Path("staff_id") staffId: String
+    ): Response<GuardProfileResponse>
+
+    @HTTP(method = "DELETE", path = "/api/delete_guard/", hasBody = true)
+    suspend fun deleteGuard(    
+        @Body staffBody: StaffBody
+    ): Response<DeleteGuardResponse>
 }
